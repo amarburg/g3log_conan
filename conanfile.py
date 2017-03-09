@@ -37,9 +37,9 @@ class G3logConan(ConanFile):
     self.run('cmake --build . %s' % cmake.build_config)
 
   def package(self):
-    self.copy("*.h", src="g3log/include/", dst="include/")
-    self.copy("*.hpp", src="g3log/include/", dst="include/")
-    self.copy("*.h", src="src/include/", dst="include/")
+    self.copy("*.h",   src="g3log/src/", dst="include/")
+    self.copy("*.hpp", src="g3log/src/", dst="include/")
+    
     if self.options.shared:
       if self.settings.os == "Macos":
           self.copy(pattern="*.dylib", dst="lib", keep_path=False)
