@@ -29,9 +29,9 @@ class G3logConan(ConanFile):
     if self.options.build_parallel:
       build_opts = "-- -j"
 
-    ## Explicitly disable RPATH on OSX
-    # if self.settings.os == "Macos":
-    #   cmake_opts += " -DCMAKE_SKIP_RPATH:BOOL=ON"
+    # Explicitly disable RPATH on OSX
+    if self.settings.os == "Macos":
+      cmake_opts += " -DCMAKE_SKIP_RPATH:BOOL=ON"
 
     self.run('cmake "%s/g3log" %s %s' % (self.conanfile_directory, cmake.command_line, cmake_opts ))
     self.run('cmake --build . %s' % cmake.build_config)
@@ -39,7 +39,7 @@ class G3logConan(ConanFile):
   def package(self):
     self.copy("*.h",   src="g3log/src/", dst="include/")
     self.copy("*.hpp", src="g3log/src/", dst="include/")
-    
+
     if self.options.shared:
       if self.settings.os == "Macos":
           self.copy(pattern="*.dylib", dst="lib", keep_path=False)
@@ -49,4 +49,4 @@ class G3logConan(ConanFile):
         self.copy(pattern="*.a", dst="lib", keep_path=False)
 
   def package_info(self):
-      self.cpp_info.libs = ["g3log"]
+      self.cpp_info.libs = ["g3logger"]
