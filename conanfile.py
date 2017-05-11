@@ -38,6 +38,7 @@ class G3logConan(ConanFile):
 
   def package(self):
     self.copy("*.h",   src="g3log/src/", dst="include/")
+    self.copy("*.hpp", src="include/", dst="include/")  ## The auto-generated generated_definitions.hpp appears in include/g3log, not with the "source" header files
     self.copy("*.hpp", src="g3log/src/", dst="include/")
 
     if self.options.shared:
